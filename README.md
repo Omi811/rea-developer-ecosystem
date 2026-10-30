@@ -17,6 +17,7 @@ This repository contains the complete reverse engineering, architectural reconst
 2. **[Google Lighthouse](https://developer.chrome.com/docs/lighthouse/overview)** — Chrome DevTools Protocol automated performance, accessibility, SEO, and Core Web Vitals auditing engine.
 3. **[Context7](https://context7.com)** — Version-aware documentation extractor, AST code snippet verifier, and prompt token budget compressor for LLMs.
 4. **[Infimium](https://infimium.com)** — Local-first, zero-cloud repository intelligence layer, AST symbol graph, hybrid BM25 retrieval, and persistent project memory.
+5. **[Universal SEO Agent Suite](06_UNIVERSAL_SEO_AGENT_SUITE)** — Tri-platform (Antigravity, Codex, Claude Code) multi-agent SEO & Generative Engine Optimization (GEO) audit suite reverse-engineered from `AgriciDaniel/claude-seo`.
 
 Every system has been analyzed using **REA's Evidence-First methodology** and reconstructed into clean, self-hostable microservices and **Model Context Protocol (MCP)** servers ready for immediate integration with AI coding assistants (Claude Code, Cursor, Windsurf, Antigravity).
 
