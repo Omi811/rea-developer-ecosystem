@@ -1,0 +1,90 @@
+version: "3.8"
+
+networks:
+  agent-mesh:
+    driver: bridge
+
+volumes:
+  redis_data:
+  infimium_data:
+
+services:
+  # -------------------------------------------------------------
+  # 01. ReUI Component & Block Registry Server
+  # -------------------------------------------------------------
+  reui-registry:
+    build:
+      context: ../01_REUI_COMPONENT_REGISTRY
+      dockerfile: deployment/Dockerfile
+    container_name: reui-registry
+    restart: unless-stopped
+    ports:
+      - "3001:3000"
+    networks:
+      - agent-mesh
+    environment:
+      - PORT=3000
+      - NODE_ENV=production
+
+  # -------------------------------------------------------------
+  # 02. Google Lighthouse Automated Auditing Cluster
+  # -------------------------------------------------------------
+  lighthouse-engine:
+    build:
+      context: ../02_GOOGLE_LIGHTHOUSE_ENGINE
+      dockerfile: deployment/Dockerfile
+    container_name: lighthouse-engine
+    restart: unless-stopped
+    ports:
+      - "8081:8080"
+    networks:
+      - agent-mesh
+    environment:
+      - NODE_ENV=production
+      - CHROME_PATH=/usr/bin/chromium
+    shm_size: "2gb"
+
+  # -------------------------------------------------------------
+  # 03. Context7 Documentation Cache & Intelligence Engine
+  # -------------------------------------------------------------
+  context7-redis:
+    image: redis:7-alpine
+    container_name: context7-redis
+    restart: unless-stopped
+    ports:
+      - "6380:6379"
+    networks:
+      - agent-mesh
+    volumes:
+      - redis_data:/data
+
+  context7-engine:
+    build:
+      context: ../03_CONTEXT7_DOCS_INTELLIGENCE
+      dockerfile: deployment/Dockerfile
+    container_name: context7-engine
+    restart: unless-stopped
+    depends_on:
+      - context7-redis
+    networks:
+      - agent-mesh
+    environment:
+      - REDIS_URL=redis://context7-redis:6379
+      - NODE_ENV=production
+
+  # -------------------------------------------------------------
+  # 04. Infimium Local Repository Intelligence & Memory Store
+  # -------------------------------------------------------------
+  infimium-engine:
+    build:
+      context: ../04_INFIMIUM_LOCAL_REPO_INTELLIGENCE
+      dockerfile: deployment/Dockerfile
+    container_name: infimium-engine
+    restart: unless-stopped
+    networks:
+      - agent-mesh
+    volumes:
+      - infimium_data:/data
+    environment:
+      - NODE_ENV=production
+      - STORAGE_DIR=/data

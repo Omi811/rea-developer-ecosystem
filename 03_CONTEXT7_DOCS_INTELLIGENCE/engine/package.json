@@ -1,0 +1,14 @@
+{
+  "name": "context7-engine",
+  "version": "1.0.0",
+  "description": "Context7 Documentation Extraction & Token Optimizer Engine",
+  "main": "dist/doc-scraper.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.4.0"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "context7-mcp-server",
+  "version": "1.0.0",
+  "description": "Context7 Documentation Intelligence MCP Server for AI Coding Agents",
+  "main": "dist/index.js",
+  "bin": {
+    "context7-mcp": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.4.0"
+  }
+}

@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  infimium-engine:
+    build:
+      context: ..
+      dockerfile: deployment/Dockerfile
+    container_name: infimium-local-daemon
+    restart: unless-stopped
+    volumes:
+      - infimium_data:/data
+    environment:
+      - NODE_ENV=production
+      - STORAGE_DIR=/data
+
+volumes:
+  infimium_data:

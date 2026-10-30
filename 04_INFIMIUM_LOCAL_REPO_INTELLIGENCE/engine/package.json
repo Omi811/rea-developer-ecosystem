@@ -1,0 +1,14 @@
+{
+  "name": "infimium-engine",
+  "version": "1.0.0",
+  "description": "Infimium Local-First Codebase Intelligence, Graph & Memory Engine",
+  "main": "dist/indexer.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.4.0"
+  }
+}

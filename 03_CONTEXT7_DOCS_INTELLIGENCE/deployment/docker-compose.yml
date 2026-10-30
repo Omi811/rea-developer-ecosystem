@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  context7-redis:
+    image: redis:7-alpine
+    container_name: context7-cache
+    restart: unless-stopped
+    ports:
+      - "6380:6379"
+    volumes:
+      - context7_redis_data:/data
+
+  context7-engine:
+    build:
+      context: ..
+      dockerfile: deployment/Dockerfile
+    container_name: context7-docs-service
+    restart: unless-stopped
+    depends_on:
+      - context7-redis
+    environment:
+      - REDIS_URL=redis://context7-redis:6379
+      - NODE_ENV=production
+
+volumes:
+  context7_redis_data:
